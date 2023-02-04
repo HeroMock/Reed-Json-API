@@ -1,6 +1,6 @@
 const Koa = require('koa'),
     path = require('path'),
-    koaBody = require('koa-body'),
+    { koaBody } = require('koa-body'),
     api = require('../index')
 
 process.env.NODE_ENV = 'test'
