@@ -19,12 +19,12 @@ module.exports = ({ urlPrefix, filePath, dummyOptions }) => {
     const router = new Router()
     urlPrefix && router.prefix(urlPrefix)
 
-    router.get('/:name/:id?', require('./lib/get')(jsonData))
-        .delete('/:name/:id?', require('./lib/delete')(jsonData))
-        .all('/:name?', handleBadRequest)
-        .post('/:name?', require('./lib/create')(jsonData))
-        .put('/:name/:id?', require('./lib/update')(jsonData, false))
-        .patch('/:name/:id?', require('./lib/update')(jsonData, true))
+    router.get('/:name{/:id}', require('./lib/get')(jsonData))
+        .delete('/:name{/:id}', require('./lib/delete')(jsonData))
+        .all('{/:name}', handleBadRequest)
+        .post('{/:name}', require('./lib/create')(jsonData))
+        .put('/:name{/:id}', require('./lib/update')(jsonData, false))
+        .patch('/:name{/:id}', require('./lib/update')(jsonData, true))
 
     return router.routes()
 }

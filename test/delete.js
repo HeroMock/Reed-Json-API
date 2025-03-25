@@ -1,8 +1,5 @@
-const request = require('supertest')
-
-process.env.NODE_ENV = 'test'
-
-const app = require('./app')
+const request = require('supertest'),
+    app = require('./app')
 
 describe('Restful API DELETE', () => {
     let server
@@ -10,7 +7,7 @@ describe('Restful API DELETE', () => {
     beforeEach(() => {
         server = app.startServer()
     })
-    
+
     it('1. DELETE with non-existed entity', () => {
         return request(server)
             .delete('/api/some-entity')

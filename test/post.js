@@ -1,9 +1,6 @@
 const request = require('supertest'),
-    assert = require('assert')
-
-process.env.NODE_ENV = 'test'
-
-const app = require('./app')
+    assert = require('assert'),
+    app = require('./app')
 
 describe('Restful API POST', () => {
     let server
