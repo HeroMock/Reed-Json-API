@@ -2,7 +2,7 @@ const fs = require('fs'),
     Router = require('koa-router'),
     path = require('path'),
     dummyJson = require('dummy-json'),
-    { setBadRequest } = require('./lib/util')
+    { setBadRequest, isEmpty } = require('./lib/util')
 
 //TODO: watch file changed for json template
 
@@ -36,7 +36,7 @@ async function handleBadRequest(ctx, next) {
         let entity = ctx.request.body,
             entityType = typeof entity
 
-        if (!entity || entityType != 'object' || entity.isEmpty()) {
+        if (!entity || entityType != 'object' || isEmpty(entity)) {
             setBadRequest(ctx)
             return
         }
