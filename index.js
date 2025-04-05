@@ -2,8 +2,7 @@ const fs = require('fs'),
     Router = require('koa-router'),
     path = require('path'),
     dummyJson = require('dummy-json'),
-    { setBadRequest, isEmpty } = require('./lib/util'),
-    mergeOptions = require('./lib/dummyHelper');
+    { setBadRequest, isEmpty } = require('./lib/util');
 
 //TODO: watch file changed for json template
 
