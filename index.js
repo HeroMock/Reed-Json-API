@@ -13,7 +13,7 @@ module.exports = ({ urlPrefix, filePath, dummyOptions }) => {
     if (path.extname(filePath).toLowerCase() == '.json') {
         jsonData = JSON.parse(source)
     } else {
-        let jsonResult = dummyJson.parse(source, mergeOptions(dummyOptions))
+        let jsonResult = dummyJson.parse(source, dummyOptions)
         jsonData = JSON.parse(jsonResult)
     }
 
