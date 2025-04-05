@@ -2,17 +2,18 @@ const fs = require('fs'),
     Router = require('koa-router'),
     path = require('path'),
     dummyJson = require('dummy-json'),
-    { setBadRequest, isEmpty } = require('./lib/util')
+    { setBadRequest, isEmpty } = require('./lib/util'),
+    mergeOptions = require('./lib/dummyHelper');
 
 //TODO: watch file changed for json template
 
 module.exports = ({ urlPrefix, filePath, dummyOptions }) => {
     const source = fs.readFileSync(filePath).toString()
-    let jsonData = ''
+    let jsonData = {}
     if (path.extname(filePath).toLowerCase() == '.json') {
         jsonData = JSON.parse(source)
     } else {
-        let jsonResult = dummyJson.parse(source, dummyOptions)
+        let jsonResult = dummyJson.parse(source, mergeOptions(dummyOptions))
         jsonData = JSON.parse(jsonResult)
     }
 
