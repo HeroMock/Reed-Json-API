@@ -7,12 +7,18 @@ const fs = require('fs'),
 //TODO: watch file changed for json template
 
 module.exports = ({ urlPrefix, filePath, dummyOptions }) => {
+    const jsonData = {}
+    const generate = () => {
+        const newData = generateData(filePath, dummyOptions);
+        Object.keys(jsonData).forEach(key => delete jsonData[key]);
+        Object.assign(jsonData, newData);
+    }
+    generate()
 
     const router = new Router()
     urlPrefix && router.prefix(urlPrefix)
-    const jsonData = generateData(filePath, dummyOptions)
 
-    router.get('/_refresh', handleRefresh(jsonData))
+    router.get('/_refresh', handleRefresh(generate))
         .get('/:name{/:id}', require('./lib/get')(jsonData))
         .delete('/:name{/:id}', require('./lib/delete')(jsonData))
         .all('{/:name}', handleBadRequest)
@@ -23,12 +29,9 @@ module.exports = ({ urlPrefix, filePath, dummyOptions }) => {
     return router.routes()
 }
 
-function handleRefresh(jsonData) {
+function handleRefresh(generate) {
     return async (ctx) => {
-        const newData = generateData(filePath, dummyOptions);
-        Object.keys(jsonData).forEach(key => delete jsonData[key]);
-        Object.assign(jsonData, newData);
-
+        generate()
         ctx.body = { message: 'Data refreshed' }
     }
 }
