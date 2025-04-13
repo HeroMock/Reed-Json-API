@@ -9,9 +9,11 @@ const fs = require('fs'),
 module.exports = ({ urlPrefix, filePath, dummyOptions }) => {
     const jsonData = {}
     const generate = () => {
+        const ts = Date.now()
         const newData = generateData(filePath, dummyOptions);
         Object.keys(jsonData).forEach(key => delete jsonData[key]);
         Object.assign(jsonData, newData);
+        console.log(`[Reed Mock] [API] Dummy data generation cost: ${Date.now() - ts}ms`)
     }
     generate()
 
